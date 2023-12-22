@@ -5,7 +5,7 @@ import isPlainObj from 'is-plain-obj';
 
 const COUNT_ERROR = 'Expected a non-negative integer';
 
-module.exports = function stripDirs(...args: any[]) {
+export default function stripDirs(...args: any[]) {
 	const argLen = args.length;
 
 	if (argLen !== 2 && argLen !== 3) {
@@ -79,4 +79,4 @@ module.exports = function stripDirs(...args: any[]) {
 	}
 
 	return join(...pathComponents.slice(count));
-};
+}
