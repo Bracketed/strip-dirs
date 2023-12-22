@@ -1,16 +1,13 @@
 {
-	"name": "strip-dirs",
-	"version": "3.0.0",
-	"description": "Remove leading directory components from a path, like tar's --strip-components option",
-	"repository": "shinnn/node-strip-dirs",
-	"author": "Shinnosuke Watanabe (https://github.com/shinnn)",
-	"license": "ISC",
-	"files": [
-		"index.js"
-	],
+	"name": "@bracketed/strip-dirs",
+	"version": "1.0.0",
+	"description": "Remove leading directory components from a path!",
+	"author": "bracketed",
+	"type": "module",
+	"main": "dist/index.js",
+	"types": "dist/index.d.ts",
 	"scripts": {
-		"pretest": "eslint .",
-		"test": "nyc node test.js"
+		"compile": "yarn tsc"
 	},
 	"keywords": [
 		"filepath",
@@ -21,21 +18,29 @@
 		"strip",
 		"strip-components"
 	],
+	"publishConfig": {
+		"access": "public"
+	},
+	"homepage": "https://bracketed.co.uk",
+	"sideEffects": false,
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/bracketed/templatecli.git",
+		"directory": "."
+	},
+	"bugs": {
+		"url": "https://github.com/bracketed/templatecli/issues"
+	},
 	"dependencies": {
 		"inspect-with-kind": "^1.0.5",
-		"is-plain-obj": "^1.1.0"
+		"is-plain-obj": "^4.1.0",
+		"kind-of": "^6.0.3"
 	},
 	"devDependencies": {
-		"@shinnn/eslint-config": "^6.7.0",
-		"eslint": "^5.5.0",
-		"nyc": "^13.0.1",
-		"nyc-config-common": "^1.0.0",
-		"tape": "^4.9.1"
-	},
-	"eslintConfig": {
-		"extends": "@shinnn"
-	},
-	"nyc": {
-		"extends": "nyc-config-common"
+		"@bracketed/typescript-config": "^4.4.0",
+		"@types/kind-of": "^6",
+		"@types/node": "^20.10.5",
+		"prettier": "^3.1.1",
+		"typescript": "^5.3.3"
 	}
 }

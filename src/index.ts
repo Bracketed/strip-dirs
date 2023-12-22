@@ -1,31 +1,30 @@
-'use strict';
-
-const {join, normalize, sep, posix: {isAbsolute: posixIsAbsolute}, win32: {isAbsolute: win32IsAbsolute}} = require('path');
-const {inspect} = require('util');
-
-const inspectWithKind = require('inspect-with-kind');
-const isPlainObj = require('is-plain-obj');
+import { join, normalize, sep, isAbsolute } from 'node:path';
+import { inspect } from 'node:util';
+import inspectWithKind from './utilities/inspect.js';
+import isPlainObj from 'is-plain-obj';
 
 const COUNT_ERROR = 'Expected a non-negative integer';
 
-module.exports = function stripDirs(...args) {
+module.exports = function stripDirs(...args: any[]) {
 	const argLen = args.length;
 
 	if (argLen !== 2 && argLen !== 3) {
-		throw new RangeError(`Expected 2 or 3 arguments (<string>, <integer>[, <Object>]), but got ${
-			argLen === 0 ? 'no' : argLen
-		} arguments.`);
+		throw new RangeError(
+			`Expected 2 or 3 arguments (<string>, <integer>[, <Object>]), but got ${
+				argLen === 0 ? 'no' : argLen
+			} arguments.`
+		);
 	}
 
-	const [pathStr, count, option = {disallowOverflow: false}] = args;
+	const [pathStr, count, option = { disallowOverflow: false }] = args;
 
 	if (typeof pathStr !== 'string') {
-		throw new TypeError(`Expected a relative file path (<string>), but got a non-string value ${
-			inspectWithKind(pathStr)
-		}.`);
+		throw new TypeError(
+			`Expected a relative file path (<string>), but got a non-string value ${inspectWithKind(pathStr)}.`
+		);
 	}
 
-	if (posixIsAbsolute(pathStr) || win32IsAbsolute(pathStr)) {
+	if (isAbsolute(pathStr)) {
 		throw new Error(`Expected a relative file path, but got an absolute path ${inspect(pathStr)}.`);
 	}
 
@@ -51,15 +50,17 @@ module.exports = function stripDirs(...args) {
 
 	if (argLen === 3) {
 		if (!isPlainObj(option)) {
-			throw new TypeError(`Expected an option object to set strip-dirs option, but got ${
-				inspectWithKind(option)
-			}.`);
+			throw new TypeError(
+				`Expected an option object to set strip-dirs option, but got ${inspectWithKind(option)}.`
+			);
 		}
 
 		if (option.disallowOverflow !== undefined && typeof option.disallowOverflow !== 'boolean') {
-			throw new TypeError(`Expected \`disallowOverflow\` option to be a boolean, but got a non-boolean value ${
-				inspectWithKind(option.disallowOverflow)
-			}.`);
+			throw new TypeError(
+				`Expected \`disallowOverflow\` option to be a boolean, but got a non-boolean value ${inspectWithKind(
+					option.disallowOverflow
+				)}.`
+			);
 		}
 	}
 
